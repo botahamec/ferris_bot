@@ -4,7 +4,8 @@ use serenity::prelude::*;
 use serenity::model::gateway::Ready;
 use serenity::model::channel::Message;
 
-const TOKEN : &str = "Njg4NDU4OTc0Njk3NDg4NTI5.Xm0ncg.VSdgaMN8B2MZvpf9TclDwayA9Os";
+use std::io::prelude::*;
+use std::fs::File;
 
 struct Handler;
 
@@ -25,7 +26,11 @@ impl EventHandler for Handler {
 
 fn main() {
 
-    let mut client = Client::new(&TOKEN, Handler)
+    let mut file = File::open(".token").unwrap();
+    let mut token = String::new();
+    file.read_to_string(&mut token).expect("Token file not found");
+
+    let mut client = Client::new(&token, Handler)
                         .expect("Error creating client");
 
     if let Err(msg) = client.start() {
