@@ -26,7 +26,7 @@ impl EventHandler for Handler {
 
 fn main() {
 
-    let mut file = File::open(".token").unwrap();
+    let mut file = File::open("token").unwrap();
     let mut token = String::new();
     file.read_to_string(&mut token).expect("Token file not found");
 
