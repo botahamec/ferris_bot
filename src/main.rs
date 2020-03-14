@@ -3,6 +3,7 @@ extern crate serenity;
 use serenity::prelude::*;
 use serenity::model::gateway::Ready;
 use serenity::model::channel::Message;
+use serenity::model::channel::Reaction;
 
 use std::io::prelude::*;
 use std::fs::File;
@@ -10,6 +11,12 @@ use std::fs::File;
 struct Handler;
 
 impl EventHandler for Handler {
+
+    fn reaction_add(&self, ctx: Context, reaction: Reaction) {
+        if let Err(why) = reaction.channel_id.say(&ctx.http, format!("{} left a reaction", reaction.user_id)) {
+            println!("Error reacting to a reaction: {:?}", why);
+        }
+    }
 
     fn message(&self, ctx: Context, msg: Message) {
         if msg.content == "?ping" {
