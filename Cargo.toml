@@ -1,0 +1,10 @@
+[package]
+name = "discord_bot_tutorial"
+version = "0.1.0"
+authors = ["mrw1593 <botahamec@outlook.com>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+serenity = "0.8"
