@@ -1,12 +1,14 @@
 use serenity::{
-	prelude::{EventHandler, Context},
-	model::{channel::{Message, Reaction, ReactionType}, gateway::Ready}
+	model::{
+		channel::{Message, Reaction, ReactionType},
+		gateway::Ready,
+	},
+	prelude::{Context, EventHandler},
 };
 
 pub struct Handler;
 
 impl EventHandler for Handler {
-
 	/* says pong on "!ping"
 	fn message(&self, ctx: Context, msg: Message) {
 		if msg.content == "?ping" {
