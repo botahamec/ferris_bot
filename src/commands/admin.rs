@@ -1,20 +1,19 @@
 use serenity::{
 	framework::standard::{
 		macros::{command, group},
-		Args, CommandResult,
+		CommandResult,
 	},
 	model::channel::Message,
 	prelude::Context,
 };
+
+use crate::cmd_ctx_msg;
 
 #[group]
 #[owners_only]
 #[commands(everyone)]
 struct Admin;
 
-#[command]
-fn everyone(ctx: &mut Context, msg: &Message) -> CommandResult {
+cmd_ctx_msg!{everyone,
 	msg.channel_id.say(&ctx.http, "@everyone")?;
-
-	Ok(())
 }

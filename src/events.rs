@@ -1,6 +1,6 @@
 use serenity::{
 	model::{
-		channel::{Message, Reaction, ReactionType},
+		channel::{Reaction, ReactionType},
 		gateway::Ready,
 	},
 	prelude::{Context, EventHandler},

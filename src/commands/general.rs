@@ -7,20 +7,17 @@ use serenity::{
 	prelude::Context,
 };
 
+use crate::cmd_ctx_msg;
+use crate::cmd_ctx_msg_args;
+
 #[group]
 #[commands(ping, say)]
 struct General;
 
-#[command]
-fn ping(ctx: &mut Context, msg: &Message) -> CommandResult {
+cmd_ctx_msg!{ping,
 	msg.reply(&ctx, "Pong?")?;
-
-	Ok(())
 }
 
-#[command]
-fn say(ctx: &mut Context, msg: &Message, args: Args) -> CommandResult {
+cmd_ctx_msg_args!{say,
 	msg.channel_id.say(&ctx.http, args.rest())?;
-
-	Ok(())
 }

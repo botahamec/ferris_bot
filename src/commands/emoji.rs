@@ -1,11 +1,13 @@
 use serenity::{
 	framework::standard::{
 		macros::{command, group},
-		Args, CommandResult,
+		CommandResult,
 	},
 	model::channel::Message,
 	prelude::Context,
 };
+
+use crate::cmd_ctx_msg;
 
 #[group]
 #[commands(bird, man, onion)]
@@ -14,23 +16,14 @@ use serenity::{
 #[prefixes("em", "emoji")]
 struct Emoji;
 
-#[command]
-fn bird(ctx: &mut Context, msg: &Message) -> CommandResult {
+cmd_ctx_msg!{bird,
 	msg.channel_id.say(&ctx.http, "🐦")?;
-
-	Ok(())
 }
 
-#[command]
-fn man(ctx: &mut Context, msg: &Message) -> CommandResult {
+cmd_ctx_msg!{man,
 	msg.channel_id.say(&ctx.http, "🕴️")?;
-
-	Ok(())
 }
 
-#[command]
-fn onion(ctx: &mut Context, msg: &Message) -> CommandResult {
+cmd_ctx_msg!{onion,
 	msg.channel_id.say(&ctx.http, "🧅")?;
-
-	Ok(())
 }
