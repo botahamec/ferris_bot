@@ -7,13 +7,13 @@ use serenity::{
 	prelude::Context,
 };
 
-use crate::cmd_ctx_msg;
-
 #[group]
 #[owners_only]
 #[commands(everyone)]
 struct Admin;
 
-cmd_ctx_msg!{everyone,
+#[command]
+fn everyone(ctx: &mut Context, msg: &Message) -> CommandResult {
 	msg.channel_id.say(&ctx.http, "@everyone")?;
+	Ok(())
 }

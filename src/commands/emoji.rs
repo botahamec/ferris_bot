@@ -7,8 +7,6 @@ use serenity::{
 	prelude::Context,
 };
 
-use crate::cmd_ctx_msg;
-
 #[group]
 #[commands(bird, man, onion)]
 #[description = "Sends out an emoji in the chat"]
@@ -16,14 +14,20 @@ use crate::cmd_ctx_msg;
 #[prefixes("em", "emoji")]
 struct Emoji;
 
-cmd_ctx_msg!{bird,
+#[command]
+fn bird(ctx: &mut Context, msg: &Message) -> CommandResult {
 	msg.channel_id.say(&ctx.http, "🐦")?;
+	Ok(())
 }
 
-cmd_ctx_msg!{man,
+#[command]
+fn man(ctx: &mut Context, msg: &Message) -> CommandResult {
 	msg.channel_id.say(&ctx.http, "🕴️")?;
+	Ok(())
 }
 
-cmd_ctx_msg!{onion,
+#[command]
+fn onion(ctx: &mut Context, msg: &Message) -> CommandResult {
 	msg.channel_id.say(&ctx.http, "🧅")?;
+	Ok(())
 }
