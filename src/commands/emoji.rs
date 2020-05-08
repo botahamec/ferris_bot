@@ -15,18 +15,21 @@ use serenity::{
 struct Emoji;
 
 #[command]
+#[description = "Gimme a bird"]
 fn bird(ctx: &mut Context, msg: &Message) -> CommandResult {
 	msg.channel_id.say(&ctx.http, "🐦")?;
 	Ok(())
 }
 
 #[command]
+#[description = "This man is weird"]
 fn man(ctx: &mut Context, msg: &Message) -> CommandResult {
 	msg.channel_id.say(&ctx.http, "🕴️")?;
 	Ok(())
 }
 
 #[command]
+#[description = "For when you really wanna cry"]
 fn onion(ctx: &mut Context, msg: &Message) -> CommandResult {
 	msg.channel_id.say(&ctx.http, "🧅")?;
 	Ok(())

@@ -4,6 +4,7 @@ mod events;
 use commands::ADMIN_GROUP;
 use commands::EMOJI_GROUP;
 use commands::GENERAL_GROUP;
+use commands::general::HELP;
 use events::Handler;
 
 use serenity::client::Client;
@@ -31,6 +32,7 @@ fn main() {
 	client.with_framework(
 		StandardFramework::new()
 			.configure(|c| c.prefix("?").owners(owners))
+			.help(&HELP)
 			.group(&GENERAL_GROUP)
 			.group(&EMOJI_GROUP)
 			.group(&ADMIN_GROUP),
