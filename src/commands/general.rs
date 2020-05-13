@@ -1,7 +1,7 @@
 use serenity::{
 	framework::standard::{
-        Args, CheckResult, CommandOptions, CommandResult, CommandGroup,
-        DispatchError, HelpOptions, help_commands, StandardFramework,
+        Args, CheckResult, CommandResult, CommandOptions, CommandGroup,
+        HelpOptions, help_commands,
         macros::{command, group, help, check},
     },
 	model::channel::Message,
@@ -15,7 +15,7 @@ use std::collections::HashSet;
 #[command_not_found_text = "Command not found: `{}`"]
 #[strikethrough_commands_tip_in_dm(" ")]
 #[strikethrough_commands_tip_in_guild(" ")]
-#[individual_command_tip = "?help [command] gives info about the command"]
+#[individual_command_tip = "?help (command) gives info about the command"]
 #[lacking_permissions = "Nothing"]
 #[lacking_role = "Nothing"]
 #[lacking_ownership = "Strike"]
@@ -38,6 +38,8 @@ struct General;
 
 #[command]
 #[description = "🏓"]
+#[only_in(guild)]
+#[required_permissions("MANAGE_EMOJIS")]
 fn ping(ctx: &mut Context, msg: &Message) -> CommandResult {
 	msg.reply(&ctx, "Pong?")?;
 	Ok(())
@@ -45,7 +47,27 @@ fn ping(ctx: &mut Context, msg: &Message) -> CommandResult {
 
 #[command]
 #[description = "Repeats what 'ya said"]
+#[aliases("repeat", "echo")]
 fn say(ctx: &mut Context, msg: &Message, args: Args) -> CommandResult {
-	msg.reply(&ctx, args.rest())?;
+	msg.channel_id.say(&ctx, args.rest())?;
 	Ok(())
+}
+
+#[command]
+#[checks(Bot)]
+fn talk_to_self(ctx: &mut Context, msg: &Message) -> CommandResult {
+	msg.reply(&ctx, "Hello, myself!")?;
+	Ok(())
+}
+
+
+#[check]
+#[name = "Bot"]
+fn bot_check(ctx: &mut Context, msg: &Message, _: &mut Args, _: &CommandOptions) -> CheckResult {
+	if let Some(member) = msg.member(&ctx.cache) {
+		let user = member.user.read();
+		user.bot.into()
+	} else {
+		false.into()
+	}
 }

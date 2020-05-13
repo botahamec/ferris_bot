@@ -10,6 +10,7 @@ use serenity::{
 #[group]
 #[owners_only]
 #[commands(everyone)]
+#[only_in(guild)]
 #[description = "Admins only"]
 struct Admin;
 
